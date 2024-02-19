@@ -1,31 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dyarkovs <dyarkovs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/18 18:51:37 by dyarkovs          #+#    #+#             */
-/*   Updated: 2024/02/18 18:51:41 by dyarkovs         ###   ########.fr       */
+/*   Created: 2023/12/03 00:26:33 by dyarkovs          #+#    #+#             */
+/*   Updated: 2023/12/08 16:02:44 by dyarkovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./minitalk.h"
+#include "libft.h"
 
-int error_check (int ac, char **av)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-    if (ac != 3)
-        ft_printf ();
-}
+	char			*buf;
+	unsigned int	i;
 
-int main(int ac, char **av)
-{
-    __pid_t serv_pid;
-
-    if (!error_check (ac, av))
-    {
-
-    }
-        printf("pid: %d\n", (int)serv_pid);
-    return (0);
+	if (!s || !f)
+		return (NULL);
+	buf = (char *)ft_calloc(sizeof(char), (ft_strlen(s) + 1));
+	if (!buf)
+		return (NULL);
+	i = 0;
+	while (s[i])
+	{
+		buf[i] = f(i, s[i]);
+		i++;
+	}
+	return (buf);
 }

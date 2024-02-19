@@ -1,37 +1,45 @@
-N_CLIENT = ./client
-N_SERVER = ./server
+#binaries (executives)
+BIN_C = ./client
+BIN_S = ./server
 
-SRC_C = client.c
-SRC_S = server.c
-OBJ_C = client.o
-OBJ_S = server.o
-DEP_C = client.d
-DEP_S = server.d
+SRC_C = $(SRC_F)client.c
+SRC_S = $(SRC_F)server.c
+OBJ_C = $(OBJ_F)client.o
+OBJ_S = $(OBJ_F)server.o
+
+SRC_F = src/
+OBJ_F = obj/
+PRINTF_F = ft_printf/
+LIB = -L$(PRINTF_F) -lftprintf
 
 CC = gcc
+#cleate dependencies files to re-make when smth changes in *.h files connected in any of *.c
+DEPFLAGS = -MP -MMD
 CFLAGS = -Wall -Wextra -Werror $(DEPFLAGS)
-DEPFLAGS = -MP -MD
-
-# OBJ_F = obj/
+FSANITIZE = -fsanitize=address
 
 
-all: $(N_CLIENT) $(N_SERVER)
 
-%.o:%.c
-	$(CC) -c $(CFLAGS) -o $@ $^
+all: $(BIN_C) $(BIN_S)
 
-$(N_CLIENT): $(OBJ_C)
-	$(CC) -o $@ $^
+$(OBJ_F)%.o: %.c
+	@mkdir -p $(OBJ_F)
+	$(CC) -c $^ -o $@ $(CFLAGS)
 
-$(N_SERVER): $(OBJ_S)
-	$(CC) -o $@ $^
+$(BIN_C): $(OBJ_C)
+	@cd $(PRINTF_F); make
+	$(CC) -o $@ $^ $(LIB) $(FSANITIZE)
+
+$(BIN_S): $(OBJ_S)
+	@cd $(PRINTF_F); make
+	$(CC) -o $@ $^ $(LIB) $(FSANITIZE)
 
 
 clean:
-	rm -f $(OBJ_C) $(OBJ_S)
+	rm -rf $(OBJ_F)
 	
 fclean: clean
-	rm -f  $(N_CLIENT) $(N_SERVER) $(DEP_C) $(DEP_S)
+	rm -f  $(BIN_C) $(BIN_S)
 
 re: fclean all
 
