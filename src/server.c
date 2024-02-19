@@ -6,11 +6,11 @@
 /*   By: dyarkovs <dyarkovs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 18:51:37 by dyarkovs          #+#    #+#             */
-/*   Updated: 2024/02/19 14:02:05 by dyarkovs         ###   ########.fr       */
+/*   Updated: 2024/02/19 16:13:42 by dyarkovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./minitalk.h"
+#include "../minitalk.h"
 
 int error_check (int ac, char **av)
 {

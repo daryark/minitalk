@@ -1,16 +1,24 @@
+GREEN = \033[0;32m
+MAGENTA	= \033[0;35m
+YELLOW = \033[0;33m
+RESET_COLOR = \033[0m
+
 #binaries (executives)
 BIN_C = ./client
 BIN_S = ./server
 
-SRC_C = $(SRC_F)client.c
-SRC_S = $(SRC_F)server.c
+SRC_C = client.c
+SRC_S = server.c
 OBJ_C = $(OBJ_F)client.o
 OBJ_S = $(OBJ_F)server.o
 
-SRC_F = src/
+VPATH = src/
 OBJ_F = obj/
-PRINTF_F = ft_printf/
-LIB = -L$(PRINTF_F) -lftprintf
+
+LIBFT = libft
+
+LIB = $(LIBFT)
+LIBFLAGS = -L$(LIBFT) -lft
 
 CC = gcc
 #cleate dependencies files to re-make when smth changes in *.h files connected in any of *.c
@@ -19,28 +27,40 @@ CFLAGS = -Wall -Wextra -Werror $(DEPFLAGS)
 FSANITIZE = -fsanitize=address
 
 
-
-all: $(BIN_C) $(BIN_S)
-
-$(OBJ_F)%.o: %.c
-	@mkdir -p $(OBJ_F)
-	$(CC) -c $^ -o $@ $(CFLAGS)
+.SILENT:
+all: minitalk
 
 $(BIN_C): $(OBJ_C)
-	@cd $(PRINTF_F); make
-	$(CC) -o $@ $^ $(LIB) $(FSANITIZE)
+	$(MAKE) -C $(LIB);
+	$(CC) -o $@ $^ $(LIBFLAGS) $(FSANITIZE)
 
 $(BIN_S): $(OBJ_S)
-	@cd $(PRINTF_F); make
-	$(CC) -o $@ $^ $(LIB) $(FSANITIZE)
+	$(MAKE) -C $(LIB);
+	$(CC) -o $@ $^ $(LIBFLAGS) $(FSANITIZE)
 
+$(OBJ_F)%.o: %.c
+	mkdir -p $(@D)
+	$(CC) -c $^ -o $@ $(CFLAGS)
 
 clean:
 	rm -rf $(OBJ_F)
+	@echo "$(YELLOW)\n☓ CLEAN MINITALK$(RESET_COLOR)"
+	cd $(LIB) && make fclean; 
+#how to rewrite it like the same syntax i did make
 	
 fclean: clean
 	rm -f  $(BIN_C) $(BIN_S)
+	@echo "$(YELLOW)☓☓ FCLEAN MINITALK\n$(RESET_COLOR)"
 
 re: fclean all
 
 .PHONY: all clean fclean re
+
+minitalk: $(BIN_C) $(BIN_S)
+	@echo "$(MAGENTA) \
+	 ☻       ☻    ☻ ☻   ☻ ☻      ☻ ☻   ☻ ☻   ☻ ☻ ☻ ☻ ☻ ☻     ☻ ☻ ☻ ☻     ☻ ☻       ☻ ☻    ☻   \
+ \n ☻ ☻     ☻ ☻   ☻ ☻   ☻ ☻ ☻    ☻ ☻   ☻ ☻       ☻ ☻       ☻ ☻     ☻ ☻   ☻ ☻       ☻ ☻  ☻     \
+ \n ☻ ☻ ☻ ☻ ☻ ☻   ☻ ☻   ☻ ☻  ☻   ☻ ☻   ☻ ☻       ☻ ☻       ☻ ☻ ☻ ☻ ☻ ☻   ☻ ☻       ☻ ☻ ☻      \
+ \n ☻ ☻     ☻ ☻   ☻ ☻   ☻ ☻    ☻ ☻ ☻   ☻ ☻       ☻ ☻       ☻ ☻     ☻ ☻   ☻ ☻       ☻ ☻  ☻     \
+ \n ☻ ☻     ☻ ☻   ☻ ☻   ☻ ☻      ☻ ☻   ☻ ☻       ☻ ☻       ☻ ☻     ☻ ☻   ☻ ☻ ☻ ☻   ☻ ☻    ☻   \
+		$(RESET_COLOR)"
