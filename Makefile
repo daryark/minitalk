@@ -23,7 +23,7 @@ LIBFLAGS = -L$(LIBFT) -lft
 CC = gcc
 #cleate dependencies files to re-make when smth changes in *.h files connected in any of *.c
 DEPFLAGS = -MP -MMD
-CFLAGS = -Wall -Wextra -Werror $(DEPFLAGS)
+CFLAGS = -Wall -Wextra -Werror -g $(DEPFLAGS)
 FSANITIZE = -fsanitize=address
 
 
@@ -40,7 +40,7 @@ $(BIN_S): $(OBJ_S)
 
 $(OBJ_F)%.o: %.c
 	mkdir -p $(@D)
-	$(CC) -c $^ -o $@ $(CFLAGS)
+	$(CC) -c $^ -o $@ $(CFLAGS) $(LIBFLAGS) $(FSANITIZE)
 
 clean:
 	rm -rf $(OBJ_F)
@@ -57,10 +57,12 @@ re: fclean all
 .PHONY: all clean fclean re
 
 minitalk: $(BIN_C) $(BIN_S)
-	@echo "$(MAGENTA) \
-	 ☻       ☻    ☻ ☻   ☻ ☻      ☻ ☻   ☻ ☻   ☻ ☻ ☻ ☻ ☻ ☻     ☻ ☻ ☻ ☻     ☻ ☻       ☻ ☻    ☻   \
+	@echo "$(YELLOW)\
+ \n———————————————————————————————————————————————————————————————————————————————————————————\n\
+ \n  ☻       ☻    ☻ ☻   ☻ ☻      ☻ ☻   ☻ ☻   ☻ ☻ ☻ ☻ ☻ ☻     ☻ ☻ ☻ ☻     ☻ ☻       ☻ ☻    ☻   \
  \n ☻ ☻     ☻ ☻   ☻ ☻   ☻ ☻ ☻    ☻ ☻   ☻ ☻       ☻ ☻       ☻ ☻     ☻ ☻   ☻ ☻       ☻ ☻  ☻     \
- \n ☻ ☻ ☻ ☻ ☻ ☻   ☻ ☻   ☻ ☻  ☻   ☻ ☻   ☻ ☻       ☻ ☻       ☻ ☻ ☻ ☻ ☻ ☻   ☻ ☻       ☻ ☻ ☻      \
+ \n ☻ ☻ ☻ ☻ ☻ ☻   ☻ ☻   ☻ ☻  ☻   ☻ ☻   ☻ ☻  ✨   ☻ ☻       ☻ ☻ ☻ ☻ ☻ ☻   ☻ ☻       ☻ ☻ ☻      \
  \n ☻ ☻     ☻ ☻   ☻ ☻   ☻ ☻    ☻ ☻ ☻   ☻ ☻       ☻ ☻       ☻ ☻     ☻ ☻   ☻ ☻       ☻ ☻  ☻     \
- \n ☻ ☻     ☻ ☻   ☻ ☻   ☻ ☻      ☻ ☻   ☻ ☻       ☻ ☻       ☻ ☻     ☻ ☻   ☻ ☻ ☻ ☻   ☻ ☻    ☻   \
+ \n ☻ ☻     ☻ ☻   ☻ ☻   ☻ ☻      ☻ ☻   ☻ ☻       ☻ ☻       ☻ ☻     ☻ ☻   ☻ ☻ ☻ ☻   ☻ ☻    ☻   \n\
+ \n———————————————————————————————————————————————————————————————————————————————————————————\
 		$(RESET_COLOR)"

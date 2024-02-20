@@ -52,7 +52,7 @@ $(NAME): $(OBJ_P)
 	\n✢ libft \
 	\n✢ ft_printf \
 	\n✢ get next line \
-	\n$(GREEN)\n------------✣ LIBFT COMPILED ✣------------\n$(RESET_COLOR)"
+	\n$(GREEN)\n—————————————✣ LIBFT COMPILED ✣—————————————\n$(RESET_COLOR)"
 
 $(OBJ_F)%.o: %.c
 	@mkdir -p $(@D)
