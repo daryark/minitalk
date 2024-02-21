@@ -8,16 +8,14 @@ BIN_C = ./client
 BIN_S = ./server
 
 SRC_C = client.c
-SRC_S = server.c
+SRC_S = server.c ascii_draw_minitalk.c
 OBJ_C = $(OBJ_F)client.o
-OBJ_S = $(OBJ_F)server.o
+OBJ_S = $(OBJ_F)server.o $(OBJ_F)ascii_draw_minitalk.o
 
 VPATH = src/
 OBJ_F = obj/
 
 LIBFT = libft
-
-LIB = $(LIBFT)
 LIBFLAGS = -L$(LIBFT) -lft
 
 CC = gcc
@@ -28,24 +26,28 @@ FSANITIZE = -fsanitize=address
 
 
 .SILENT:
-all: minitalk
+all: $(BIN_C) $(BIN_S)
+
 
 $(BIN_C): $(OBJ_C)
-	$(MAKE) -C $(LIB);
+	$(MAKE) -C $(LIBFT);
 	$(CC) -o $@ $^ $(LIBFLAGS) $(FSANITIZE)
+	@echo "$(GREEN)Client$(RESET_COLOR)"
 
 $(BIN_S): $(OBJ_S)
-	$(MAKE) -C $(LIB);
+	$(MAKE) -C $(LIBFT);
 	$(CC) -o $@ $^ $(LIBFLAGS) $(FSANITIZE)
+	@echo "$(GREEN)Server$(RESET_COLOR)"
 
 $(OBJ_F)%.o: %.c
 	mkdir -p $(@D)
-	$(CC) -c $^ -o $@ $(CFLAGS) $(LIBFLAGS) $(FSANITIZE)
+	$(CC) -c $^ -o $@ $(CFLAGS) $(FSANITIZE)
 
 clean:
+	clear;
 	rm -rf $(OBJ_F)
-	@echo "$(YELLOW)\n☓ CLEAN MINITALK$(RESET_COLOR)"
-	cd $(LIB) && make fclean; 
+	@echo "$(YELLOW)\n☓  CLEAN MINITALK$(RESET_COLOR)"
+	cd $(LIBFT) && make fclean; 
 #how to rewrite it like the same syntax i did make
 	
 fclean: clean
@@ -54,15 +56,5 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
 
-minitalk: $(BIN_C) $(BIN_S)
-	@echo "$(YELLOW)\
- \n———————————————————————————————————————————————————————————————————————————————————————————\n\
- \n  ☻       ☻    ☻ ☻   ☻ ☻      ☻ ☻   ☻ ☻   ☻ ☻ ☻ ☻ ☻ ☻     ☻ ☻ ☻ ☻     ☻ ☻       ☻ ☻    ☻   \
- \n ☻ ☻     ☻ ☻   ☻ ☻   ☻ ☻ ☻    ☻ ☻   ☻ ☻       ☻ ☻       ☻ ☻     ☻ ☻   ☻ ☻       ☻ ☻  ☻     \
- \n ☻ ☻ ☻ ☻ ☻ ☻   ☻ ☻   ☻ ☻  ☻   ☻ ☻   ☻ ☻  ✨   ☻ ☻       ☻ ☻ ☻ ☻ ☻ ☻   ☻ ☻       ☻ ☻ ☻      \
- \n ☻ ☻     ☻ ☻   ☻ ☻   ☻ ☻    ☻ ☻ ☻   ☻ ☻       ☻ ☻       ☻ ☻     ☻ ☻   ☻ ☻       ☻ ☻  ☻     \
- \n ☻ ☻     ☻ ☻   ☻ ☻   ☻ ☻      ☻ ☻   ☻ ☻       ☻ ☻       ☻ ☻     ☻ ☻   ☻ ☻ ☻ ☻   ☻ ☻    ☻   \n\
- \n———————————————————————————————————————————————————————————————————————————————————————————\
-		$(RESET_COLOR)"
+.PHONY: all clean fclean re
