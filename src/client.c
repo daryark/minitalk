@@ -6,7 +6,7 @@
 /*   By: dyarkovs <dyarkovs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 17:49:22 by dyarkovs          #+#    #+#             */
-/*   Updated: 2024/02/21 23:06:17 by dyarkovs         ###   ########.fr       */
+/*   Updated: 2024/02/22 19:30:58 by dyarkovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int	main(int ac, char **av)
 		return (0);
 	}
 	sent_text_by_bits (av[2], serv_pid);
+	sent_text_by_bits ("\n", serv_pid);
 	return (0);
 }
 

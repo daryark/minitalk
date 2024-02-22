@@ -10,7 +10,7 @@ BIN_S = ./server
 SRC_C = client.c
 SRC_S = server.c ascii_draw_minitalk.c
 OBJ_C = $(OBJ_F)client.o
-OBJ_S = $(OBJ_F)server.o $(OBJ_F)ascii_draw_minitalk.o
+OBJ_S = $(addprefix obj/, $(SRC_S:%.c=%.o))
 
 VPATH = src/
 OBJ_F = obj/
@@ -27,6 +27,7 @@ FSANITIZE = -fsanitize=address
 #!add norminette check in the rule
 .SILENT:
 all: $(BIN_C) $(BIN_S)
+	norminette
 
 
 $(BIN_C): $(OBJ_C)
@@ -37,7 +38,7 @@ $(BIN_C): $(OBJ_C)
 $(BIN_S): $(OBJ_S)
 	$(MAKE) -C $(LIBFT);
 	$(CC) -o $@ $^ $(LIBFLAGS) $(FSANITIZE)
-	@echo "$(GREEN)Server$(RESET_COLOR)"
+	@echo "$(GREEN)Server\n$(RESET_COLOR)"
 
 $(OBJ_F)%.o: %.c
 	mkdir -p $(@D)
