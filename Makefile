@@ -24,7 +24,7 @@ DEPFLAGS = -MP -MMD
 CFLAGS = -Wall -Wextra -Werror -g $(DEPFLAGS)
 FSANITIZE = -fsanitize=address
 
-
+#!add norminette check in the rule
 .SILENT:
 all: $(BIN_C) $(BIN_S)
 

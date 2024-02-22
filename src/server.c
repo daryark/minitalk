@@ -6,7 +6,7 @@
 /*   By: dyarkovs <dyarkovs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 18:51:37 by dyarkovs          #+#    #+#             */
-/*   Updated: 2024/02/21 23:11:37 by dyarkovs         ###   ########.fr       */
+/*   Updated: 2024/02/22 01:36:54 by dyarkovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 void	get_signal(int bit)
 {
-	static unsigned char	c;
-	static int				i;
+	static char	c;
+	static int	i;
 
 	c |= (bit == SIGUSR2);
 	if (++i == 8)
 	{
 		if (c == END_OF_SIGNAL)
-			ft_printf ("\n");
+			ft_printf ("\n\n\n");
 		else
 			ft_printf ("%c", c);
 		c = 0;
