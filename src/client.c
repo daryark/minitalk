@@ -6,7 +6,7 @@
 /*   By: dyarkovs <dyarkovs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/18 17:49:22 by dyarkovs          #+#    #+#             */
-/*   Updated: 2024/02/22 19:30:58 by dyarkovs         ###   ########.fr       */
+/*   Updated: 2024/02/23 16:11:49 by dyarkovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	sent_text_by_bits(char *s, pid_t serv_pid)
 				kill (serv_pid, SIGUSR1);
 			else
 				kill (serv_pid, SIGUSR2);
-			usleep(42);
+			usleep(200);
 		}
 		s++;
 	}
